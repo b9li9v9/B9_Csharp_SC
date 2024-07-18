@@ -5,7 +5,7 @@
         public long Id { get; set; }
         public string DeptName { get; set; }
         public long DeptHeadId { get; set; }
-        public long OrgId { get; set; }
+        public Org OrgId { get; set; } = null!;
 
 
     }
@@ -15,10 +15,21 @@
         public void Configure(EntityTypeBuilder<Dept> builder)
         {
             builder.ToTable("T_Depts");
+            builder.Property(d => d.DeptName).HasMaxLength(50).IsRequired();
+            builder.Property(d => d.DeptHeadId).IsRequired();
 
-            builder.Property(t => t.DeptName).HasMaxLength(50).IsRequired();
-            builder.Property(t => t.DeptHeadId).IsRequired();
-            builder.Property(t => t.OrgId).IsRequired();
+
+            //FK
+            //builder.HasOne<Org>(d => d.OrgId).WithMany(o => o.Departments).IsRequired();
+
+            //builder.HasOne(d => d.Organization)
+            //    .WithMany(o => o.Departments)
+            //    .HasForeignKey(d => d.OrgId);
+
+            //builder.HasOne(e => e.Organization)
+            //.WithMany(e => e.Departments)
+            //.HasForeignKey(e => e.OrgId)
+            //.IsRequired();
         }
     }
 }

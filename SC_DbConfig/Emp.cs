@@ -15,6 +15,10 @@ namespace SC_DbConfig
         public void Configure(EntityTypeBuilder<Emp> builder)
         {
             builder.ToTable("T_Emps");
+            builder.Property(t => t.EmpName).HasMaxLength(50).IsRequired();
+            builder.Property(t => t.UserId).IsRequired();
+            builder.Property(t => t.DeptId).IsRequired();
+
         }
     }
 }

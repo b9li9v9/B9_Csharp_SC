@@ -37,10 +37,12 @@ namespace SC_DbConfig.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("OrgId")
+                    b.Property<long>("OrgIdId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrgIdId");
 
                     b.ToTable("T_Depts", (string)null);
                 });
@@ -58,7 +60,8 @@ namespace SC_DbConfig.Migrations
 
                     b.Property<string>("EmpName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -85,8 +88,6 @@ namespace SC_DbConfig.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrgName", "OrgHeadId");
 
                     b.ToTable("T_Orgs", (string)null);
                 });
@@ -117,6 +118,22 @@ namespace SC_DbConfig.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("T_Users", (string)null);
+                });
+
+            modelBuilder.Entity("SC_DbConfig.Dept", b =>
+                {
+                    b.HasOne("SC_DbConfig.Org", "OrgId")
+                        .WithMany("Departments")
+                        .HasForeignKey("OrgIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrgId");
+                });
+
+            modelBuilder.Entity("SC_DbConfig.Org", b =>
+                {
+                    b.Navigation("Departments");
                 });
 #pragma warning restore 612, 618
         }

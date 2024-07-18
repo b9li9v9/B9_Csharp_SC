@@ -8,6 +8,10 @@
 Migration
 	1.Add-Migration Init 生成DB配置代码 
 	2.Update-database    执行DB配置代码 单向迁移 
+关系
+	1.一对一 HasOne(...).WithOne(...)
+	2.一对多 HasOne(...).WithMany(...)
+	3.多对多 HasMany(...).WithMany(...)
 
 
 主外键关联、字段约束的写法还是很麻烦，

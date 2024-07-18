@@ -20,8 +20,8 @@ namespace SC_DbConfig
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("T_Users");
-            builder.Property(t => t.Nick).HasMaxLength(50).IsRequired();
             builder.Property(t => t.Acct).HasMaxLength(50).IsRequired();
+            builder.Property(t => t.Nick).HasMaxLength(50).IsRequired();
             builder.Property(t => t.pwd).HasMaxLength(50).IsRequired();
         }
     }
