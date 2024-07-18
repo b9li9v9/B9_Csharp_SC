@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SC_DbConfig;
 
@@ -10,9 +11,11 @@ using SC_DbConfig;
 namespace SC_DbConfig.Migrations
 {
     [DbContext(typeof(SC_DbContext))]
-    partial class SC_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718073508_TestIndex3")]
+    partial class TestIndex3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace SC_DbConfig.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrgName", "OrgHeadId");
+                    b.HasIndex("OrgName");
 
                     b.ToTable("T_Orgs", (string)null);
                 });

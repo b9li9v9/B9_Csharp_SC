@@ -9,7 +9,7 @@ namespace SC_DbConfig
     internal class User
     {
         public long Id { get; set; }
-        public string? Acct { get; set; }
+        public string Acct { get; set; }
         public string Nick { get; set; }
         public string pwd { get; set; }
 

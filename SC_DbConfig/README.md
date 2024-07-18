@@ -14,6 +14,7 @@ Migration
 需要改动主键的表 外键的表 以及DBCTX
 
 EFCore有个约定大于配置的特点 
+EFCore的批量操作需要仔细检验过程
 最好用FLunet API -> https://blog.51cto.com/u_15127644/2756675
 Id默认为主键
 
