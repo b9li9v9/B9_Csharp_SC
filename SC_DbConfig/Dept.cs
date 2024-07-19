@@ -6,7 +6,7 @@
         public string DeptName { get; set; }
         public long? UserOwn { get; set; }
         public Guid OrgOwn { get; set; }
-        //"Attribution Verification" 的缩写可以是 AV。
+        //"Attribution Verification" 的缩写可以是 AV。 .
         public bool AV { get; set; }
 
         public User FKUserOwn { get; set; } = null!;
