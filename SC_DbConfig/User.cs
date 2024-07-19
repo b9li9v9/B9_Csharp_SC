@@ -8,11 +8,16 @@ namespace SC_DbConfig
 {
     internal class User
     {
-        public long Id { get; set; }
+        public long UserId { get; set; }
         public string Acct { get; set; }
         public string Nick { get; set; }
         public string pwd { get; set; }
 
+        //only 
+        //many 员工身份档案
+        public ICollection<Org> FKOrgs { get; } = new List<Org>();
+        public ICollection<Dept> FKDepts { get; } = new List<Dept>();
+        public ICollection<Emp> FKEmps { get; } = new List<Emp>();
     }
 
     internal class UserConfig : IEntityTypeConfiguration<User>

@@ -1,4 +1,9 @@
-﻿NuGet	
+﻿重要
+	1.EFCore的 "约定大于配置" 默认行为是个超级大坑，
+		ms会自动根据实体类变量名默认配置，导致和显式FLAPI冲突
+		取变量名绕过"约定"非常重要
+		类似 xxxId 这种名都非常恶心
+NuGet	
 	1.Install-Package Microsoft.EntityFrameworkCore.SqlServer
 	2.Install-Package Microsoft.EntityFrameworkCore.Tools
 配置

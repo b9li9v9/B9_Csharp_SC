@@ -2,12 +2,16 @@
 {
     internal class Dept
     {
-        public long Id { get; set; }
+        public Guid DeptId { get; set; }
         public string DeptName { get; set; }
-        public long DeptHeadId { get; set; }
-        public Org OrgId { get; set; } = null!;
+        public long? UserOwn { get; set; }
+        public Guid OrgOwn { get; set; }
+        //"Attribution Verification" 的缩写可以是 AV。
+        public bool AV { get; set; }
 
-
+        public User FKUserOwn { get; set; } = null!;
+        //public Org FKOrgOwn { get; set; } = null!;
+        //public ICollection<Emp> FKEmps { get; } = new List<Emp>();
     }
 
     internal class DeptConfig : IEntityTypeConfiguration<Dept>
@@ -15,21 +19,20 @@
         public void Configure(EntityTypeBuilder<Dept> builder)
         {
             builder.ToTable("T_Depts");
-            builder.Property(d => d.DeptName).HasMaxLength(50).IsRequired();
-            builder.Property(d => d.DeptHeadId).IsRequired();
-
+            //builder.Property(d => d.DeptName).HasMaxLength(50).IsRequired();
 
             //FK
-            //builder.HasOne<Org>(d => d.OrgId).WithMany(o => o.Departments).IsRequired();
+            builder.HasOne<User>(d => d.FKUserOwn)
+                    .WithMany(u => u.FKDepts)
+                    .HasForeignKey(d => d.UserOwn)
+                    .OnDelete(DeleteBehavior.SetNull);
 
-            //builder.HasOne(d => d.Organization)
-            //    .WithMany(o => o.Departments)
-            //    .HasForeignKey(d => d.OrgId);
 
-            //builder.HasOne(e => e.Organization)
-            //.WithMany(e => e.Departments)
-            //.HasForeignKey(e => e.OrgId)
-            //.IsRequired();
+
+            //builder.HasOne<Org>(d => d.FKOrgOwn)
+            //        .WithMany(o => o.FKDepts)
+            //        .HasForeignKey(d => d.OrgOwn);
+
         }
     }
 }

@@ -2,12 +2,15 @@
 {
     internal class Org
     {
-        public long Id { get; set; }
+        public Guid OrgId { get; set; }
         public string OrgName { get; set; }
-        public long OrgHeadId { get; set; }
+        public long UserOwn { get; set; }
 
-        public ICollection<Dept> Departments { get;} = new List<Dept>();
-        //public ICollection<Post> Posts { get; } = new List<Post>();
+        //only 负责人
+        //many 部门
+        public User FKUserOwn { get; set; } = null!;
+        //public ICollection<Dept> FKDepts { get;} = new List<Dept>();
+
     }
 
     internal class OrgConfig : IEntityTypeConfiguration<Org>
@@ -16,19 +19,15 @@
         {
 
             builder.ToTable("T_Orgs");
-            builder.Property(o => o.OrgName).HasMaxLength(50).IsRequired();
-            builder.Property(o => o.OrgHeadId).IsRequired();
+            //builder.Property(o => o.OrgName).HasMaxLength(50).IsRequired();
+
             //索引 builder.HasIndex(t => t.OrgName);
             //复合索引 builder.HasIndex(t=>new {t.OrgName, t.OrgHeadId});
 
             //FK 外键设置
-            //builder.HasMany(o => o.Departments)
-            //  .WithOne(d => d.Organization)
-            //.HasForeignKey(d => d.OrgId);
-
-            //builder.HasMany<Dept>(o => o.Departments).WithOne(d => d.Organization).HasForeignKey(d => d.OrgId).IsRequired();
-
-            builder.HasMany<Dept>(o => o.Departments).WithOne(d => d.OrgId).IsRequired();
+            builder.HasOne<User>(o => o.FKUserOwn)
+                    .WithMany(u => u.FKOrgs)
+                    .HasForeignKey(o => o.UserOwn);
 
         }
     }

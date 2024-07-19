@@ -3,13 +3,12 @@
     internal class Program
     {
         static void Main(string[] args)
-        {
+        {  /*
             using (SC_DbContext SC_Db = new SC_DbContext())
             {
-                Org o = SC_Db.Orgs.Single(o=>o.Id == 1);
-                Console.WriteLine(o.OrgName+"````````````````````````````");
+
             }
-            /*
+          
 
         using (SC_DbContext SC_Db = new SC_DbContext())
         {

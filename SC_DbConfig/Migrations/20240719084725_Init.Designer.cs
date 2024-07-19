@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SC_DbConfig;
 
@@ -11,9 +12,11 @@ using SC_DbConfig;
 namespace SC_DbConfig.Migrations
 {
     [DbContext(typeof(SC_DbContext))]
-    partial class SC_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240719084725_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +41,7 @@ namespace SC_DbConfig.Migrations
                     b.Property<Guid>("OrgOwn")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("UserOwn")
+                    b.Property<long>("UserOwn")
                         .HasColumnType("bigint");
 
                     b.HasKey("DeptId");
@@ -129,7 +132,8 @@ namespace SC_DbConfig.Migrations
                     b.HasOne("SC_DbConfig.User", "FKUserOwn")
                         .WithMany("FKDepts")
                         .HasForeignKey("UserOwn")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FKUserOwn");
                 });
