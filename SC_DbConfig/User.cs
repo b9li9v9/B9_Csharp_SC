@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+[assembly: InternalsVisibleTo("SC_Forms")]
 
 namespace SC_DbConfig
 {
@@ -15,9 +19,9 @@ namespace SC_DbConfig
 
         //only 
         //many 员工身份档案
-        public ICollection<Org> FKOrgs { get; } = new List<Org>();
-        public ICollection<Dept> FKDepts { get; } = new List<Dept>();
-        public ICollection<Emp> FKEmps { get; } = new List<Emp>();
+        //public ICollection<Org> FKOrgs { get; } = new List<Org>();
+        //public ICollection<Dept> FKDepts { get; } = new List<Dept>();
+        //public ICollection<Emp> FKEmps { get; } = new List<Emp>();
     }
 
     internal class UserConfig : IEntityTypeConfiguration<User>
@@ -25,9 +29,10 @@ namespace SC_DbConfig
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("T_Users");
-            builder.Property(t => t.Acct).HasMaxLength(50).IsRequired();
-            builder.Property(t => t.Nick).HasMaxLength(50).IsRequired();
-            builder.Property(t => t.pwd).HasMaxLength(50).IsRequired();
+            builder.HasKey(u => u.UserId);
+            builder.Property(u => u.Acct).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.Nick).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.pwd).HasMaxLength(50).IsRequired();
         }
     }
 }

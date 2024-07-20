@@ -1,4 +1,7 @@
-﻿namespace SC_DbConfig
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+
+namespace SC_DbConfig
 {
     internal class Program
     {
@@ -83,8 +86,56 @@
 
 
         }
+
+
+            
+            using (SC_DbContext SC_Db = new SC_DbContext())
+            {
             */
+
+
+            //User user = new User();
+            //user.UserId = 10086;
+            //user.Acct = "1@qq.com";
+            //user.Nick = "小鲨鱼";
+            //user.pwd = "123";
+            //SC_Db.Users.Add(user);
+            //SC_Db.SaveChanges();
+
+            /*
+            OrgUnit orgu = new OrgUnit();
+            orgu.Guid = Guid.NewGuid();
+            orgu.EmpName = "马云";
+            orgu.OrgName = "阿里巴巴";
+            orgu.UserId = 1;
+            orgu.IsDeleted = false;
+            orgu.AV = true;
+            SC_Db.OrgUnits.Add(orgu);
+            SC_Db.SaveChanges();
+            */
+
+            using (SC_DbContext SC_Db = new SC_DbContext())
+            {
+ 
+
+                OrgUnit orgu2 = SC_Db.OrgUnits
+                        .Include(o => o.NavChildrens)
+                        .Single(o => o.ParentGuid == null);
+
+                Console.WriteLine(orgu2.Guid);
+
+                var orguitem = orgu2.NavChildrens;
+                Console.WriteLine(orguitem.Count());
+                foreach (OrgUnit o in orguitem)
+                {
+                    Console.WriteLine(o.OrgName + " " + o.EmpName);
+                }
+            }
+
+            }
+
+
 
         }
     }
-}
+

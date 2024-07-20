@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
 namespace SC_DbConfig
 {
     internal class Emp
@@ -36,3 +35,4 @@ namespace SC_DbConfig
         }
     }
 }
+*/

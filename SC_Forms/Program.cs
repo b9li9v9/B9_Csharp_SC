@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SC_DbConfig;
+using System.Diagnostics;
 namespace SC_Forms
 {
     internal static class Program
@@ -12,7 +15,41 @@ namespace SC_Forms
             // see https://aka.ms/applicationconfiguration.
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            /*
+            using (SC_DbContext SC_Db = new SC_DbContext())
+            {
+                OrgUnit orgu = SC_Db.OrgUnits
+                    .Include(o => o.NavChildrens)
+                    .Single(o => o.ParentGuid == null);
+
+                Debug.WriteLine(orgu.Guid);
+
+                var orguitem = orgu.NavChildrens;
+                Debug.WriteLine(orguitem.Count());
+                foreach (OrgUnit o in orguitem)
+                {
+                    Debug.WriteLine(o.OrgName + " " + o.EmpName);
+                }
+
+
+            }
+
+
+            using (SC_DbContext SC_Db = new SC_DbContext())
+            {
+                User user = SC_Db.Users.Single(u => u.UserId == 1);
+                Debug.WriteLine(user.Acct);
+            }
+            */
+
+            FormsManager.AddForm("Login",new FormLogin());
+            FormsManager.AddForm("Registered", new FormRegistered());
+            FormsManager.AddForm("Index", new FormIndex());
+            FormsManager.AddForm("TestDbView", new TestDbView());
+            Application.Run(FormsManager.GetForm("Login"));
+
+
+
         }
     }
 }

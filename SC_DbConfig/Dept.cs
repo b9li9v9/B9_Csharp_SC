@@ -1,4 +1,5 @@
-﻿namespace SC_DbConfig
+﻿/*
+namespace SC_DbConfig
 {
     internal class Dept
     {
@@ -36,3 +37,4 @@
         }
     }
 }
+*/

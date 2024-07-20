@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SC_DbConfig;
 
@@ -11,9 +12,11 @@ using SC_DbConfig;
 namespace SC_DbConfig.Migrations
 {
     [DbContext(typeof(SC_DbContext))]
-    partial class SC_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720102911_Init3")]
+    partial class Init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +27,7 @@ namespace SC_DbConfig.Migrations
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>
                 {
-                    b.Property<Guid>("Guid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -46,15 +49,15 @@ namespace SC_DbConfig.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid?>("ParentGuid")
+                    b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Guid");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ParentGuid");
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -93,7 +96,7 @@ namespace SC_DbConfig.Migrations
                 {
                     b.HasOne("SC_DbConfig.OrgUnit", "NavParent")
                         .WithMany("NavChildrens")
-                        .HasForeignKey("ParentGuid")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SC_DbConfig.User", "NavUserId")

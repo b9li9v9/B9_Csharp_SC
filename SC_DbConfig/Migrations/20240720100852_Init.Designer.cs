@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SC_DbConfig;
 
@@ -11,9 +12,11 @@ using SC_DbConfig;
 namespace SC_DbConfig.Migrations
 {
     [DbContext(typeof(SC_DbContext))]
-    partial class SC_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720100852_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,39 +27,30 @@ namespace SC_DbConfig.Migrations
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>
                 {
-                    b.Property<Guid>("Guid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("AV")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("EmpName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("OrgName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid?>("ParentGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("UserId")
+                    b.Property<long>("NodeLeader")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Guid");
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("ParentGuid");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("NodeLeader");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("T_OrgUnits", (string)null);
                 });
@@ -91,20 +85,20 @@ namespace SC_DbConfig.Migrations
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>
                 {
-                    b.HasOne("SC_DbConfig.OrgUnit", "NavParent")
-                        .WithMany("NavChildrens")
-                        .HasForeignKey("ParentGuid")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SC_DbConfig.User", "NavUserId")
+                    b.HasOne("SC_DbConfig.User", "NavUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("NodeLeader")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SC_DbConfig.OrgUnit", "NavParent")
+                        .WithMany("NavChildrens")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("NavParent");
 
-                    b.Navigation("NavUserId");
+                    b.Navigation("NavUser");
                 });
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>
