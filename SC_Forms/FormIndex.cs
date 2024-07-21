@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,7 +38,12 @@ namespace SC_Forms
 
         private void btnUserSetting_Click(object sender, EventArgs e)
         {
-            FormsManager.GetForm("TestDbView").Show();
+            Form testDbView = new TestDbView();
+            testDbView.FormClosing += (object sender, FormClosingEventArgs e) =>
+            {
+                testDbView.Dispose();
+            };
+            testDbView.Show();
         }
     }
 }

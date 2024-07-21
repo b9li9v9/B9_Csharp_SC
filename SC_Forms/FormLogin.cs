@@ -27,7 +27,8 @@ namespace SC_Forms
             {
                 var existingUser = SC_Db.Users.FirstOrDefault(u => u.Acct == this.tbAcct.Text && u.pwd == this.tbPwd.Text);
                 if (existingUser != null) 
-                { 
+                {
+                    FormsManager.UserId = existingUser.UserId;
                     FormsManager.ShowSingleForm("Index");
                 }
                 else

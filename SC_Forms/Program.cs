@@ -45,7 +45,7 @@ namespace SC_Forms
             FormsManager.AddForm("Login",new FormLogin());
             FormsManager.AddForm("Registered", new FormRegistered());
             FormsManager.AddForm("Index", new FormIndex());
-            FormsManager.AddForm("TestDbView", new TestDbView());
+            //FormsManager.AddForm("TestDbView", new TestDbView());
             Application.Run(FormsManager.GetForm("Login"));
 
 

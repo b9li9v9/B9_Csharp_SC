@@ -33,9 +33,11 @@ namespace SC_Forms
         {
             components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
-            button1 = new Button();
+            btnSave = new Button();
             init6BindingSource = new BindingSource(components);
             init6BindingSource1 = new BindingSource(components);
+            btnDelete = new Button();
+            btnUpdata = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)init6BindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)init6BindingSource1).BeginInit();
@@ -48,20 +50,16 @@ namespace SC_Forms
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(703, 335);
             dataGridView1.TabIndex = 0;
-
-            // data添加到窗口初始化去，并且窗口要每次都New
-            SC_DbContext SC_Db = new SC_DbContext();
-            var data = SC_Db.Users.ToList(); // 或者其他查询方式
-            dataGridView1.DataSource = data;
             // 
-            // button1
+            // btnSave
             // 
-            button1.Location = new Point(345, 393);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "save";
-            button1.UseVisualStyleBackColor = true;
+            btnSave.Location = new Point(345, 393);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(75, 23);
+            btnSave.TabIndex = 1;
+            btnSave.Text = "save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += button1_Click;
             // 
             // init6BindingSource
             // 
@@ -71,15 +69,37 @@ namespace SC_Forms
             // 
             init6BindingSource1.DataSource = typeof(SC_DbConfig.Migrations.Init6);
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(253, 393);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 2;
+            btnDelete.Text = "delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdata
+            // 
+            btnUpdata.Location = new Point(159, 393);
+            btnUpdata.Name = "btnUpdata";
+            btnUpdata.Size = new Size(75, 23);
+            btnUpdata.TabIndex = 3;
+            btnUpdata.Text = "updata";
+            btnUpdata.UseVisualStyleBackColor = true;
+            btnUpdata.Click += button3_Click;
+            // 
             // TestDbView
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(btnUpdata);
+            Controls.Add(btnDelete);
+            Controls.Add(btnSave);
             Controls.Add(dataGridView1);
             Name = "TestDbView";
             Text = "TestDbView";
+            Load += TestDbView_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)init6BindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)init6BindingSource1).EndInit();
@@ -90,7 +110,9 @@ namespace SC_Forms
 
         private DataGridView dataGridView1;
         private BindingSource init6BindingSource;
-        private Button button1;
+        private Button btnSave;
         private BindingSource init6BindingSource1;
+        private Button btnDelete;
+        private Button btnUpdata;
     }
 }

@@ -9,6 +9,7 @@ namespace SC_Forms
 {
     internal static class FormsManager
     {
+        public static long UserId;
         private static Dictionary<string,Form> FormsDict = new Dictionary<string, Form>();
         //private static List<Form> openForms = new List<Form>();
 
