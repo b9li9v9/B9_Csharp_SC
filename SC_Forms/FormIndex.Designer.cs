@@ -34,6 +34,16 @@
             btnSetting = new ToolStripSplitButton();
             btnUserSetting = new ToolStripMenuItem();
             组织管理ToolStripMenuItem = new ToolStripMenuItem();
+            menuNodeManager = new ToolStripMenuItem();
+            注册根节点ToolStripMenuItem = new ToolStripMenuItem();
+            删除根节点ToolStripMenuItem = new ToolStripMenuItem();
+            修改根节点ToolStripMenuItem = new ToolStripMenuItem();
+            查询根节点ToolStripMenuItem = new ToolStripMenuItem();
+            menuSelfNode = new ToolStripMenuItem();
+            加入节点ToolStripMenuItem = new ToolStripMenuItem();
+            menuSelectSelfNode = new ToolStripMenuItem();
+            menuDeleteSelfNode = new ToolStripMenuItem();
+            查询子节点ToolStripMenuItem = new ToolStripMenuItem();
             toolStripButton2 = new ToolStripButton();
             toolStripButton3 = new ToolStripButton();
             toolStrip1.SuspendLayout();
@@ -48,6 +58,7 @@
             toolStrip1.Size = new Size(800, 25);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.MouseDown += toolStrip1_MouseDown;
             // 
             // toolStripButton1
             // 
@@ -75,9 +86,75 @@
             // 
             // 组织管理ToolStripMenuItem
             // 
+            组织管理ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuNodeManager, menuSelfNode, 查询子节点ToolStripMenuItem });
             组织管理ToolStripMenuItem.Name = "组织管理ToolStripMenuItem";
             组织管理ToolStripMenuItem.Size = new Size(180, 22);
             组织管理ToolStripMenuItem.Text = "组织管理";
+            // 
+            // menuNodeManager
+            // 
+            menuNodeManager.DropDownItems.AddRange(new ToolStripItem[] { 注册根节点ToolStripMenuItem, 删除根节点ToolStripMenuItem, 修改根节点ToolStripMenuItem, 查询根节点ToolStripMenuItem });
+            menuNodeManager.Name = "menuNodeManager";
+            menuNodeManager.Size = new Size(180, 22);
+            menuNodeManager.Text = "根节点管理";
+            // 
+            // 注册根节点ToolStripMenuItem
+            // 
+            注册根节点ToolStripMenuItem.Name = "注册根节点ToolStripMenuItem";
+            注册根节点ToolStripMenuItem.Size = new Size(180, 22);
+            注册根节点ToolStripMenuItem.Text = "注册根节点";
+            注册根节点ToolStripMenuItem.Click += 注册根节点ToolStripMenuItem_Click;
+            // 
+            // 删除根节点ToolStripMenuItem
+            // 
+            删除根节点ToolStripMenuItem.Name = "删除根节点ToolStripMenuItem";
+            删除根节点ToolStripMenuItem.Size = new Size(180, 22);
+            删除根节点ToolStripMenuItem.Text = "删除根节点";
+            // 
+            // 修改根节点ToolStripMenuItem
+            // 
+            修改根节点ToolStripMenuItem.Name = "修改根节点ToolStripMenuItem";
+            修改根节点ToolStripMenuItem.Size = new Size(180, 22);
+            修改根节点ToolStripMenuItem.Text = "修改根节点";
+            // 
+            // 查询根节点ToolStripMenuItem
+            // 
+            查询根节点ToolStripMenuItem.Name = "查询根节点ToolStripMenuItem";
+            查询根节点ToolStripMenuItem.Size = new Size(180, 22);
+            查询根节点ToolStripMenuItem.Text = "查询根节点";
+            查询根节点ToolStripMenuItem.Click += 查询根节点ToolStripMenuItem_Click;
+            // 
+            // menuSelfNode
+            // 
+            menuSelfNode.DropDownItems.AddRange(new ToolStripItem[] { 加入节点ToolStripMenuItem, menuSelectSelfNode, menuDeleteSelfNode });
+            menuSelfNode.Name = "menuSelfNode";
+            menuSelfNode.Size = new Size(180, 22);
+            menuSelfNode.Text = "本节点管理";
+            // 
+            // 加入节点ToolStripMenuItem
+            // 
+            加入节点ToolStripMenuItem.Name = "加入节点ToolStripMenuItem";
+            加入节点ToolStripMenuItem.Size = new Size(180, 22);
+            加入节点ToolStripMenuItem.Text = "加入父节点";
+            // 
+            // menuSelectSelfNode
+            // 
+            menuSelectSelfNode.Name = "menuSelectSelfNode";
+            menuSelectSelfNode.Size = new Size(180, 22);
+            menuSelectSelfNode.Text = "查阅本节点";
+            menuSelectSelfNode.Click += menuSelectSelfNode_Click;
+            // 
+            // menuDeleteSelfNode
+            // 
+            menuDeleteSelfNode.Name = "menuDeleteSelfNode";
+            menuDeleteSelfNode.Size = new Size(180, 22);
+            menuDeleteSelfNode.Text = "删除本节点";
+            // 
+            // 查询子节点ToolStripMenuItem
+            // 
+            查询子节点ToolStripMenuItem.Name = "查询子节点ToolStripMenuItem";
+            查询子节点ToolStripMenuItem.Size = new Size(180, 22);
+            查询子节点ToolStripMenuItem.Text = "子节点管理";
             // 
             // toolStripButton2
             // 
@@ -123,5 +200,15 @@
         private ToolStripMenuItem 组织管理ToolStripMenuItem;
         private ToolStripButton toolStripButton2;
         private ToolStripButton toolStripButton3;
+        private ToolStripMenuItem menuNodeManager;
+        private ToolStripMenuItem 查询子节点ToolStripMenuItem;
+        private ToolStripMenuItem menuSelfNode;
+        private ToolStripMenuItem 注册根节点ToolStripMenuItem;
+        private ToolStripMenuItem 删除根节点ToolStripMenuItem;
+        private ToolStripMenuItem 修改根节点ToolStripMenuItem;
+        private ToolStripMenuItem 查询根节点ToolStripMenuItem;
+        private ToolStripMenuItem 加入节点ToolStripMenuItem;
+        private ToolStripMenuItem menuSelectSelfNode;
+        private ToolStripMenuItem menuDeleteSelfNode;
     }
 }

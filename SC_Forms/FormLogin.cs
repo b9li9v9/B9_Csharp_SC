@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SC_DbConfig;
 
 namespace SC_Forms
@@ -12,7 +13,8 @@ namespace SC_Forms
 
         private void btnRegistered_Click_1(object sender, EventArgs e)
         {
-            FormsManager.ShowSingleForm("Registered");
+            //FormsManager.ShowSingleForm("Registered");
+            FormsManager.UseDisposableForm("registered",new FormRegistered());
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -29,6 +31,7 @@ namespace SC_Forms
                 if (existingUser != null) 
                 {
                     FormsManager.UserId = existingUser.UserId;
+                    FormsManager.AddForm("Index", new FormIndex());
                     FormsManager.ShowSingleForm("Index");
                 }
                 else

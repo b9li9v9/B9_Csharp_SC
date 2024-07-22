@@ -61,14 +61,6 @@ namespace SC_Forms
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += button1_Click;
             // 
-            // init6BindingSource
-            // 
-            init6BindingSource.DataSource = typeof(SC_DbConfig.Migrations.Init6);
-            // 
-            // init6BindingSource1
-            // 
-            init6BindingSource1.DataSource = typeof(SC_DbConfig.Migrations.Init6);
-            // 
             // btnDelete
             // 
             btnDelete.Location = new Point(253, 393);

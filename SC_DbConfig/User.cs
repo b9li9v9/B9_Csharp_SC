@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-[assembly: InternalsVisibleTo("SC_Forms")]
 
 namespace SC_DbConfig
 {
@@ -16,6 +15,8 @@ namespace SC_DbConfig
         public string Acct { get; set; }
         public string Nick { get; set; }
         public string pwd { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         //only 
         //many 员工身份档案
@@ -33,6 +34,7 @@ namespace SC_DbConfig
             builder.Property(u => u.Acct).HasMaxLength(50).IsRequired();
             builder.Property(u => u.Nick).HasMaxLength(50).IsRequired();
             builder.Property(u => u.pwd).HasMaxLength(50).IsRequired();
+            builder.HasQueryFilter(u => u.IsDeleted == false); // 全局搜索器 支持软删除
         }
     }
 }

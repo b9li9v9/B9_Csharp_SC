@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace SC_DbConfig
@@ -114,6 +115,7 @@ namespace SC_DbConfig
             SC_Db.SaveChanges();
             */
 
+            /*
             using (SC_DbContext SC_Db = new SC_DbContext())
             {
  
@@ -132,10 +134,11 @@ namespace SC_DbConfig
                 }
             }
 
-            }
+            */
 
 
-
+            
+        }
         }
     }
 

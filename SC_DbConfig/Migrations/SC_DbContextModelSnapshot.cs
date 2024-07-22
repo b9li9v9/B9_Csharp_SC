@@ -46,17 +46,17 @@ namespace SC_DbConfig.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<Guid?>("ParentGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Guid");
 
-                    b.HasIndex("ParentGuid");
+                    b.HasIndex("OwnerId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ParentGuid");
 
                     b.ToTable("T_OrgUnits", (string)null);
                 });
@@ -73,6 +73,9 @@ namespace SC_DbConfig.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nick")
                         .IsRequired()
@@ -91,20 +94,20 @@ namespace SC_DbConfig.Migrations
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>
                 {
+                    b.HasOne("SC_DbConfig.User", "NavOwnerId")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SC_DbConfig.OrgUnit", "NavParent")
                         .WithMany("NavChildrens")
                         .HasForeignKey("ParentGuid")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SC_DbConfig.User", "NavUserId")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("NavOwnerId");
 
                     b.Navigation("NavParent");
-
-                    b.Navigation("NavUserId");
                 });
 
             modelBuilder.Entity("SC_DbConfig.OrgUnit", b =>

@@ -27,7 +27,7 @@ namespace SC_Forms
             // 从数据库加载数据
             var data = SC_Db.Users.Where(u => u.UserId == FormsManager.UserId).ToList(); // 或者其他查询方式
             dataGridView1.DataSource = data;
-            SC_Db.close
+            //SC_Db.close
         }
         private void TestDbView_Load(object sender, EventArgs e)
         {

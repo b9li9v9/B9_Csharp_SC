@@ -10,16 +10,15 @@ namespace SC_Forms
     internal static class FormsManager
     {
         public static long UserId;
+        //持久化窗口
         private static Dictionary<string,Form> FormsDict = new Dictionary<string, Form>();
-        //private static List<Form> openForms = new List<Form>();
+        //一次性窗口
+        public static Dictionary<string, Form> DisposableFormsDict = new Dictionary<string, Form>();
 
         public static void AddForm(string key, Form form)
         {
             FormsDict[key] = form;
-            FormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) =>
-            {
-                Application.Exit();
-            };
+            FormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => {Application.Exit();};
         }
 
         public static void RemoveForm(string key)
@@ -47,6 +46,15 @@ namespace SC_Forms
                 if (kvp.Key == key) kvp.Value.Show();
                 else kvp.Value.Hide();
             }
+        }
+
+        public static void UseDisposableForm(string key, Form form)
+        {
+            DisposableFormsDict[key] = form;
+            DisposableFormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => { DisposableFormsDict[key].Dispose(); };
+            DisposableFormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => { DisposableFormsDict.Remove(key); };
+            //DisposableFormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => { Debug.WriteLine(DisposableFormsDict.Count); };
+            DisposableFormsDict[key].Show();
         }
     }
 }

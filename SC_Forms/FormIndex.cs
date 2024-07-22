@@ -27,23 +27,42 @@ namespace SC_Forms
             InitializeComponent();
         }
 
-
-
         /// 关闭按钮
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-
+        // 用户信息测试
         private void btnUserSetting_Click(object sender, EventArgs e)
         {
-            Form testDbView = new TestDbView();
-            testDbView.FormClosing += (object sender, FormClosingEventArgs e) =>
-            {
-                testDbView.Dispose();
-            };
-            testDbView.Show();
+            FormsManager.UseDisposableForm("testDbView", new TestDbView());
+        }
+
+        // 顶框拖拽
+        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+        }
+
+        // 本节点读取
+        private void menuSelectSelfNode_Click(object sender, EventArgs e)
+        {
+            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingLoadSelfNote());
+        }
+
+        // 根节点注册
+        private void 注册根节点ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormsManager.UseDisposableForm("RegiRootNode", new FormIndexManagerSettingRegisteredRootNode());
+
+        }
+
+        // 根节点查询
+        private void 查询根节点ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormsManager.UseDisposableForm("LoadSelfRootNote", new FormIndexManagerSettingLoadSelfRootNote());
         }
     }
 }

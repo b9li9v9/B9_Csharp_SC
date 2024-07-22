@@ -12,7 +12,7 @@ NuGet
 	2.实体配置类 继承IEntityTypeConfiguration<实体类> 
 	3.dbctx类   继承DbContext类 -> use db,set table
 Migration
-	1.Add-Migration Init 生成DB配置代码 
+	1.Add-Migration Init 生成DB配置代码   (需要所有挂载的项目编译无误)
 	2.Update-database    执行DB配置代码 单向迁移 
 关系
 	1.一对一 HasOne(...).WithOne(...)
