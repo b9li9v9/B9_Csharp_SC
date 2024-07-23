@@ -18,6 +18,14 @@ namespace SC_Forms
         public static void AddForm(string key, Form form)
         {
             FormsDict[key] = form;
+            // 关闭持久化前先清理一次性窗口
+            FormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => { 
+                foreach(string key in DisposableFormsDict.Keys)
+                {
+                    DisposableFormsDict[key].Close();
+                }
+                    };
+
             FormsDict[key].FormClosing += (object sender, FormClosingEventArgs e) => {Application.Exit();};
         }
 

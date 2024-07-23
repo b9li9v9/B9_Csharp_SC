@@ -14,13 +14,7 @@ namespace SC_Forms
 {
     public partial class FormIndex : Form
     {
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        [DllImport("user32.dll")]
-        public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
-        public const int WM_SYSCOMMAND = 0x0112;
-        public const int SC_MOVE = 0xF010;
-        public const int HTCAPTION = 0x0002;
+
 
         public FormIndex()
         {
@@ -39,30 +33,19 @@ namespace SC_Forms
             FormsManager.UseDisposableForm("testDbView", new TestDbView());
         }
 
-        // 顶框拖拽
-        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
-        }
 
         // 本节点读取
         private void menuSelectSelfNode_Click(object sender, EventArgs e)
         {
-            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingLoadSelfNote());
+            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingSelfNote());
         }
 
-        // 根节点注册
-        private void 注册根节点ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormsManager.UseDisposableForm("RegiRootNode", new FormIndexManagerSettingRegisteredRootNode());
 
-        }
 
-        // 根节点查询
-        private void 查询根节点ToolStripMenuItem_Click(object sender, EventArgs e)
+        // 根节点管理
+        private void menuNodeManager_Click(object sender, EventArgs e)
         {
-            FormsManager.UseDisposableForm("LoadSelfRootNote", new FormIndexManagerSettingLoadSelfRootNote());
+            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingRootNote()); 
         }
     }
 }
