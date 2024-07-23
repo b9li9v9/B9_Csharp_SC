@@ -30,6 +30,10 @@
         {
             splitContainer1 = new SplitContainer();
             dataGridView1 = new DataGridView();
+            btnRegistered = new Button();
+            button3 = new Button();
+            button2 = new Button();
+            button1 = new Button();
             Guid = new DataGridViewTextBoxColumn();
             NavOwnerId = new DataGridViewTextBoxColumn();
             NavParent = new DataGridViewTextBoxColumn();
@@ -40,10 +44,6 @@
             IsDeleted = new DataGridViewTextBoxColumn();
             ParentGuid = new DataGridViewTextBoxColumn();
             AV = new DataGridViewTextBoxColumn();
-            btnRegistered = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -81,8 +81,49 @@
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new Size(800, 266);
             dataGridView1.TabIndex = 0;
+            // 
+            // btnRegistered
+            // 
+            btnRegistered.Location = new Point(63, 55);
+            btnRegistered.Name = "btnRegistered";
+            btnRegistered.Size = new Size(75, 23);
+            btnRegistered.TabIndex = 3;
+            btnRegistered.Text = "注册";
+            btnRegistered.UseVisualStyleBackColor = true;
+            btnRegistered.Click += btnRegistered_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(156, 55);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 2;
+            button3.Text = "查询";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(348, 55);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 1;
+            button2.Text = "删除";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(251, 55);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 0;
+            button1.Text = "修改";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Guid
             // 
@@ -127,7 +168,7 @@
             // OwnerId
             // 
             OwnerId.DataPropertyName = "OwnerId";
-            OwnerId.HeaderText = "负责人ID";
+            OwnerId.HeaderText = "Owner";
             OwnerId.Name = "OwnerId";
             // 
             // IsDeleted
@@ -150,46 +191,6 @@
             AV.HeaderText = "合法性";
             AV.Name = "AV";
             AV.ReadOnly = true;
-            // 
-            // btnRegistered
-            // 
-            btnRegistered.Location = new Point(63, 55);
-            btnRegistered.Name = "btnRegistered";
-            btnRegistered.Size = new Size(75, 23);
-            btnRegistered.TabIndex = 3;
-            btnRegistered.Text = "注册";
-            btnRegistered.UseVisualStyleBackColor = true;
-            btnRegistered.Click += btnRegistered_Click;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(156, 55);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 2;
-            button3.Text = "查询";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(348, 55);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 1;
-            button2.Text = "删除";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(251, 55);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "修改";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // FormIndexManagerSettingRootNote
             // 
@@ -214,6 +215,7 @@
         private Button button1;
         private Button button2;
         private Button button3;
+        private Button btnRegistered;
         private DataGridViewTextBoxColumn Guid;
         private DataGridViewTextBoxColumn NavOwnerId;
         private DataGridViewTextBoxColumn NavParent;
@@ -224,6 +226,5 @@
         private DataGridViewTextBoxColumn IsDeleted;
         private DataGridViewTextBoxColumn ParentGuid;
         private DataGridViewTextBoxColumn AV;
-        private Button btnRegistered;
     }
 }

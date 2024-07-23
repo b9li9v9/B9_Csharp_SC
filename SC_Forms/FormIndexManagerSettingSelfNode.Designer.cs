@@ -1,6 +1,6 @@
 ﻿namespace SC_Forms
 {
-    partial class FormIndexManagerSettingSelfNote
+    partial class FormIndexManagerSettingSelfNode
     {
         /// <summary>
         /// Required designer variable.

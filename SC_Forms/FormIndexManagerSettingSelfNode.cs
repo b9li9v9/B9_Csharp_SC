@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SC_Forms
 {
-    public partial class FormIndexManagerSettingSelfNote : Form
+    public partial class FormIndexManagerSettingSelfNode : Form
     {
-        public FormIndexManagerSettingSelfNote()
+        public FormIndexManagerSettingSelfNode()
         {
             InitializeComponent();
         }

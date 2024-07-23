@@ -13,6 +13,11 @@ using System.Windows.Forms;
 
 namespace SC_Forms
 {
+    /// <summary>
+    /// 不支持同一个账户多端登陆，这样数据库批量修改乱套了  单条修改只需每次操作先读取一次
+    /// OrgName允许同名 因为Guid是唯一的  并且例如许多组织叫  “行政部...”  是很正常的事情
+    /// Owner允许转移 转移后默认为False 需要接收者手动接收后为True
+    /// </summary>
     public partial class FormIndexManagerSettingRootNote : Form
     {
         private List<OrgUnit> OrgUnitsTable;
@@ -20,11 +25,6 @@ namespace SC_Forms
         public FormIndexManagerSettingRootNote()
         {
             InitializeComponent();
-            //dataGridView1.Columns[0].ReadOnly = true;
-            //dataGridView1.Columns[1].ReadOnly = false;
-            //dataGridView1.Columns[2].ReadOnly = false;
-            //dataGridView1.Columns[3].ReadOnly = false;
-            //dataGridView1.Columns[4].ReadOnly = true;
         }
 
         //private void FormIndexManagerSettingLoadSelfRootNote_Load(object sender, EventArgs e)
@@ -37,9 +37,11 @@ namespace SC_Forms
             return SC_DB.OrgUnits.Where(o => o.OwnerId == FormsManager.UserId && o.ParentGuid == null).ToList();
         }
 
+        // 修改
         private void button1_Click(object sender, EventArgs e)
         {
             if (SC_DB == null) return;
+
             // 事务
             using (var transaction = SC_DB.Database.BeginTransaction())
             {
@@ -49,26 +51,33 @@ namespace SC_Forms
                     {
                         var entry = SC_DB.Entry(orgUnit);
 
+                        // 根据实体状态处理相应操作 这里实际上只用到修改                     
                         if (entry.State == EntityState.Modified)
                         {
-                            // 一个账户同时登录 同时打开修改框 那么这个地方就会有BUG
-                            // 处理修改状态的实体对象                     
-                            MessageBox.Show($"OrgUnit {orgUnit.OwnerId} is modified.");
+
+                            // 归属权转移 合法性为false
+                            if (orgUnit.OwnerId != FormsManager.UserId)
+                            {
+                                orgUnit.AV = false;
+                            }
+                            SC_DB.SaveChanges();
+                    
+                        
                         }
                         else if (entry.State == EntityState.Added)
                         {
                             // 处理新增状态的实体对象
-                            MessageBox.Show($"OrgUnit {orgUnit.Guid} is added.");
+                            //MessageBox.Show($"OrgUnit {orgUnit.Guid} is added.");
                         }
                         else if (entry.State == EntityState.Deleted)
                         {
                             // 处理删除状态的实体对象
-                            MessageBox.Show($"OrgUnit {orgUnit.Guid} is deleted.");
+                            //MessageBox.Show($"OrgUnit {orgUnit.Guid} is deleted.");
                         }
                         else
                         {
                             // 处理未更改状态的实体对象
-                            MessageBox.Show($"OrgUnit {orgUnit.Guid} is unchanged.");
+                            //MessageBox.Show($"OrgUnit {orgUnit.Guid} is unchanged.");
                         }
                     }
                     SC_DB.SaveChanges();
@@ -87,14 +96,36 @@ namespace SC_Forms
         // 删除
         private void button2_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (dataGridView1.SelectedCells.Count > 0)
             {
-                // 获取选中行的索引
-                var selectedIndex = dataGridView1.SelectedRows[0].Selected.ToString();
+                // 获取用户框选列
+                foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+                {
+                    // 获取单元格所在的行
+                    DataGridViewRow row = cell.OwningRow;
 
+                    // 获取与行关联的数据源对象
+                    if (row.DataBoundItem is OrgUnit orgUnit)
+                    {
+                        // 如果用户更改了owner却没保存
+                        if(orgUnit.OwnerId != FormsManager.UserId)
+                        {
+                            MessageBox.Show("请先保存修改 再尝试删除");
+                            button3_Click(null, null);
+                            return;
+                        }
+                        // 现在可以直接使用 orgUnit 对象来操作数据，而不需要深拷贝
+                        // 例如：
+                        orgUnit.IsDeleted = true;
+                        MessageBox.Show($"{dataGridView1.SelectedCells.Count}");
+                        // 对 orgUnit 做其他操作...
+                    }
+
+                }
+                SC_DB.SaveChanges();
                 // 删除选中行
-                MessageBox.Show($"删除：{selectedIndex}"); ;
             }
+            button3_Click(null, null);
         }
 
         // 查询
@@ -105,12 +136,28 @@ namespace SC_Forms
             OrgUnitsTable = GetTable();
             this.dataGridView1.DataSource = OrgUnitsTable;
             this.dataGridView1.DataError += dataGridView1_DataError;
+            //this.dataGridView1.AllowUserToAddRows = true;
+            //this.dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithAutoHeaderText;
         }
 
         // 注册
         private void btnRegistered_Click(object sender, EventArgs e)
         {
-            FormsManager.UseDisposableForm("RegisteredRootNode", new FormIndexManagerSettingRegisteredRootNode());
+            button3_Click(null,null);
+
+            OrgUnit orgunit = new OrgUnit();
+            Guid giud = new Guid();
+            orgunit.Guid = giud;
+            orgunit.EmpName = "default";
+            orgunit.OrgName = "default";
+            orgunit.OwnerId = FormsManager.UserId;
+            orgunit.AV = true;
+
+            SC_DB.OrgUnits.Add(orgunit);
+            SC_DB.SaveChanges();
+
+            button3_Click(null, null);
+
         }
 
 
@@ -128,6 +175,8 @@ namespace SC_Forms
                             "数据错误",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
+            //this.dataGridView1.DataSource = null;
+            //button3_Click(null, null);
 
             // 可以根据需要执行其他的错误处理逻辑，例如记录日志
             // Logger.Log($"数据错误：{e.Exception.Message}");

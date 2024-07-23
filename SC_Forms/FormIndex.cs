@@ -37,7 +37,7 @@ namespace SC_Forms
         // 本节点读取
         private void menuSelectSelfNode_Click(object sender, EventArgs e)
         {
-            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingSelfNote());
+            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingSelfNode());
         }
 
 
