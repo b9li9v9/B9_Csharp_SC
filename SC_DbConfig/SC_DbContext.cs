@@ -19,7 +19,7 @@ namespace SC_DbConfig
             string connStr = "server=DESKTOP-10B83JG\\SQLEXPRESS;uid=zhangsan;pwd=111111;database=SC_DB;Encrypt=False;";
             //string connStr = "server=.;uid=zhangsan;pwd=123456;database=SC_DB;Encrypt=False;";
             optionsBuilder.UseSqlServer(connStr);
-            optionsBuilder.LogTo(msg => { if (!msg.Contains("CommandExecuting")) return;Debug.WriteLine(msg); });
+            //optionsBuilder.LogTo(msg => { if (!msg.Contains("CommandExecuting")) return;Debug.WriteLine(msg); });
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

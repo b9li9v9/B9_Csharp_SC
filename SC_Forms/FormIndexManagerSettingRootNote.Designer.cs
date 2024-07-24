@@ -30,6 +30,7 @@
         {
             splitContainer1 = new SplitContainer();
             dataGridView1 = new DataGridView();
+            button4 = new Button();
             btnRegistered = new Button();
             button3 = new Button();
             button2 = new Button();
@@ -64,6 +65,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(button4);
             splitContainer1.Panel2.Controls.Add(btnRegistered);
             splitContainer1.Panel2.Controls.Add(button3);
             splitContainer1.Panel2.Controls.Add(button2);
@@ -84,6 +86,16 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new Size(800, 266);
             dataGridView1.TabIndex = 0;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(449, 55);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 4;
+            button4.Text = "接收节点";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // btnRegistered
             // 
@@ -168,7 +180,7 @@
             // OwnerId
             // 
             OwnerId.DataPropertyName = "OwnerId";
-            OwnerId.HeaderText = "Owner";
+            OwnerId.HeaderText = "权属人";
             OwnerId.Name = "OwnerId";
             // 
             // IsDeleted
@@ -216,6 +228,7 @@
         private Button button2;
         private Button button3;
         private Button btnRegistered;
+        private Button button4;
         private DataGridViewTextBoxColumn Guid;
         private DataGridViewTextBoxColumn NavOwnerId;
         private DataGridViewTextBoxColumn NavParent;

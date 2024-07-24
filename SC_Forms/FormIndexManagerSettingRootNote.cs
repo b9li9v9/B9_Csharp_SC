@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -60,24 +61,33 @@ namespace SC_Forms
                             {
                                 orgUnit.AV = false;
                             }
-                            SC_DB.SaveChanges();
-                    
-                        
+                            Debug.WriteLine(entry.State.ToString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                            //SC_DB.SaveChanges();
+                            
+                            // BUG细节
+                            // 第一个 SaveChanges() 被调用后，
+                            // 所有状态为 Modified、Added、Deleted 的实体对象的状态会被更新到数据库，
+                            // 并且它们的状态将被重置为 Unchanged。SC_DB.SaveChanges();
+
+
                         }
                         else if (entry.State == EntityState.Added)
                         {
                             // 处理新增状态的实体对象
                             //MessageBox.Show($"OrgUnit {orgUnit.Guid} is added.");
+                            Debug.WriteLine(entry.State.ToString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         }
                         else if (entry.State == EntityState.Deleted)
                         {
                             // 处理删除状态的实体对象
                             //MessageBox.Show($"OrgUnit {orgUnit.Guid} is deleted.");
+                            Debug.WriteLine(entry.State.ToString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         }
                         else
                         {
                             // 处理未更改状态的实体对象
                             //MessageBox.Show($"OrgUnit {orgUnit.Guid} is unchanged.");
+                            Debug.WriteLine(entry.State.ToString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         }
                     }
                     SC_DB.SaveChanges();
@@ -90,7 +100,7 @@ namespace SC_Forms
                     MessageBox.Show($"提交失败 事务回滚：{ex.Message}");
                 }
             }
-            button3_Click(null,null);
+            button3_Click(null, null);
         }
 
         // 删除
@@ -108,7 +118,7 @@ namespace SC_Forms
                     if (row.DataBoundItem is OrgUnit orgUnit)
                     {
                         // 如果用户更改了owner却没保存
-                        if(orgUnit.OwnerId != FormsManager.UserId)
+                        if (orgUnit.OwnerId != FormsManager.UserId)
                         {
                             MessageBox.Show("请先保存修改 再尝试删除");
                             button3_Click(null, null);
@@ -117,7 +127,7 @@ namespace SC_Forms
                         // 现在可以直接使用 orgUnit 对象来操作数据，而不需要深拷贝
                         // 例如：
                         orgUnit.IsDeleted = true;
-                        MessageBox.Show($"{dataGridView1.SelectedCells.Count}");
+                        //MessageBox.Show($"{dataGridView1.SelectedCells.Count}");
                         // 对 orgUnit 做其他操作...
                     }
 
@@ -131,7 +141,7 @@ namespace SC_Forms
         // 查询
         private void button3_Click(object sender, EventArgs e)
         {
-            if(SC_DB!=null) SC_DB.Dispose();
+            if (SC_DB != null) SC_DB.Dispose();
             SC_DB = new SC_DbContext();
             OrgUnitsTable = GetTable();
             this.dataGridView1.DataSource = OrgUnitsTable;
@@ -143,7 +153,7 @@ namespace SC_Forms
         // 注册
         private void btnRegistered_Click(object sender, EventArgs e)
         {
-            button3_Click(null,null);
+            button3_Click(null, null);
 
             OrgUnit orgunit = new OrgUnit();
             Guid giud = new Guid();
@@ -182,5 +192,38 @@ namespace SC_Forms
             // Logger.Log($"数据错误：{e.Exception.Message}");
         }
 
+        // 接收节点
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                // 检查每一行
+                foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+                {
+                    // 获取单元格所在的行
+                    DataGridViewRow row = cell.OwningRow;
+
+                    // 获取与行关联的数据源对象
+                    if (row.DataBoundItem is OrgUnit orgUnit)
+                    {
+                        // 如果用户更改了owner却没保存
+                        if (orgUnit.OwnerId != FormsManager.UserId)
+                        {
+                            MessageBox.Show("请先保存修改 再尝试删除");
+                            button3_Click(null, null);
+                            return;
+                        }
+                        // 现在可以直接使用 orgUnit 对象来操作数据，而不需要深拷贝
+                        // 例如：
+                        orgUnit.AV = true;
+                        //MessageBox.Show($"{dataGridView1.SelectedCells.Count}");
+                        // 对 orgUnit 做其他操作...
+                    }
+                }
+                SC_DB.SaveChanges();
+            }
+            button3_Click(null, null);
+
+        }
     }
 }
