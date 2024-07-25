@@ -34,9 +34,6 @@
             组织管理ToolStripMenuItem = new ToolStripMenuItem();
             menuNodeManager = new ToolStripMenuItem();
             menuSelfNode = new ToolStripMenuItem();
-            加入节点ToolStripMenuItem = new ToolStripMenuItem();
-            menuSelectSelfNode = new ToolStripMenuItem();
-            menuDeleteSelfNode = new ToolStripMenuItem();
             查询子节点ToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -81,35 +78,17 @@
             // 
             // menuSelfNode
             // 
-            menuSelfNode.DropDownItems.AddRange(new ToolStripItem[] { 加入节点ToolStripMenuItem, menuSelectSelfNode, menuDeleteSelfNode });
             menuSelfNode.Name = "menuSelfNode";
             menuSelfNode.Size = new Size(180, 22);
             menuSelfNode.Text = "本节点管理";
-            // 
-            // 加入节点ToolStripMenuItem
-            // 
-            加入节点ToolStripMenuItem.Name = "加入节点ToolStripMenuItem";
-            加入节点ToolStripMenuItem.Size = new Size(136, 22);
-            加入节点ToolStripMenuItem.Text = "加入父节点";
-            // 
-            // menuSelectSelfNode
-            // 
-            menuSelectSelfNode.Name = "menuSelectSelfNode";
-            menuSelectSelfNode.Size = new Size(136, 22);
-            menuSelectSelfNode.Text = "查阅本节点";
-            menuSelectSelfNode.Click += menuSelectSelfNode_Click;
-            // 
-            // menuDeleteSelfNode
-            // 
-            menuDeleteSelfNode.Name = "menuDeleteSelfNode";
-            menuDeleteSelfNode.Size = new Size(136, 22);
-            menuDeleteSelfNode.Text = "删除本节点";
+            menuSelfNode.Click += menuSelfNode_Click;
             // 
             // 查询子节点ToolStripMenuItem
             // 
             查询子节点ToolStripMenuItem.Name = "查询子节点ToolStripMenuItem";
             查询子节点ToolStripMenuItem.Size = new Size(180, 22);
             查询子节点ToolStripMenuItem.Text = "子节点管理";
+            查询子节点ToolStripMenuItem.Click += 查询子节点ToolStripMenuItem_Click;
             // 
             // FormIndex
             // 
@@ -135,8 +114,5 @@
         private ToolStripMenuItem menuNodeManager;
         private ToolStripMenuItem 查询子节点ToolStripMenuItem;
         private ToolStripMenuItem menuSelfNode;
-        private ToolStripMenuItem 加入节点ToolStripMenuItem;
-        private ToolStripMenuItem menuSelectSelfNode;
-        private ToolStripMenuItem menuDeleteSelfNode;
     }
 }

@@ -12,7 +12,7 @@ using SC_DbConfig;
 namespace SC_DbConfig.Migrations
 {
     [DbContext(typeof(SC_DbContext))]
-    [Migration("20240722073601_Init")]
+    [Migration("20240725102350_Init")]
     partial class Init
     {
         /// <inheritdoc />

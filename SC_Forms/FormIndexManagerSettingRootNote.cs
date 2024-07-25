@@ -33,6 +33,7 @@ namespace SC_Forms
         //    this.dataGridView1.DataSource = OrgUnitsTable;
         //}
 
+        // 获取数据库表
         private List<OrgUnit> GetTable()
         {
             return SC_DB.OrgUnits.Where(o => o.OwnerId == FormsManager.UserId && o.ParentGuid == null).ToList();
@@ -103,7 +104,7 @@ namespace SC_Forms
             button3_Click(null, null);
         }
 
-        // 删除
+        // 删除  --> 这边还少了个操作 懒得写了  要递归删除子节点 因为根已经消失了 
         private void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedCells.Count > 0)
@@ -170,7 +171,7 @@ namespace SC_Forms
 
         }
 
-
+        // 错误类型检测
         // dataerror
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
@@ -195,6 +196,7 @@ namespace SC_Forms
         // 接收节点
         private void button4_Click(object sender, EventArgs e)
         {
+            if (SC_DB == null) return;
             if (dataGridView1.SelectedCells.Count > 0)
             {
                 // 检查每一行

@@ -33,19 +33,21 @@ namespace SC_Forms
             FormsManager.UseDisposableForm("testDbView", new TestDbView());
         }
 
+        // 根节点管理
+        private void menuNodeManager_Click(object sender, EventArgs e)
+        {
+            FormsManager.UseDisposableForm("LoadRootNode", new FormIndexManagerSettingRootNote());
+        }
 
         // 本节点读取
-        private void menuSelectSelfNode_Click(object sender, EventArgs e)
+        private void menuSelfNode_Click(object sender, EventArgs e)
         {
             FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingSelfNode());
         }
 
-
-
-        // 根节点管理
-        private void menuNodeManager_Click(object sender, EventArgs e)
+        private void 查询子节点ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormsManager.UseDisposableForm("LoadSelfNode", new FormIndexManagerSettingRootNote()); 
+            FormsManager.UseDisposableForm("LoadChildNode", new FormIndexManagerSettingChildNode());
         }
     }
 }

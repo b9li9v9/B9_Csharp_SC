@@ -31,20 +31,21 @@
             splitContainer1 = new SplitContainer();
             dataGridView1 = new DataGridView();
             Guid = new DataGridViewTextBoxColumn();
+            NavChildrens = new DataGridViewTextBoxColumn();
+            NavParent = new DataGridViewTextBoxColumn();
+            NavOwnerId = new DataGridViewTextBoxColumn();
             EmpName = new DataGridViewTextBoxColumn();
             OrgName = new DataGridViewTextBoxColumn();
             OwnerId = new DataGridViewTextBoxColumn();
             IsDeleted = new DataGridViewTextBoxColumn();
             ParentGuid = new DataGridViewTextBoxColumn();
             AV = new DataGridViewTextBoxColumn();
-            button1 = new Button();
-            label1 = new Label();
+            btnUpData = new Button();
+            btnSignOutNode = new Button();
+            btnQuery = new Button();
             txParentNode = new TextBox();
-            button2 = new Button();
-            txEmpName = new Label();
-            txOrgName = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            label1 = new Label();
+            btnAddNode = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -65,22 +66,22 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(textBox2);
-            splitContainer1.Panel2.Controls.Add(textBox1);
-            splitContainer1.Panel2.Controls.Add(txOrgName);
-            splitContainer1.Panel2.Controls.Add(txEmpName);
-            splitContainer1.Panel2.Controls.Add(button2);
+            splitContainer1.Panel2.Controls.Add(btnUpData);
+            splitContainer1.Panel2.Controls.Add(btnSignOutNode);
+            splitContainer1.Panel2.Controls.Add(btnQuery);
             splitContainer1.Panel2.Controls.Add(txParentNode);
             splitContainer1.Panel2.Controls.Add(label1);
-            splitContainer1.Panel2.Controls.Add(button1);
+            splitContainer1.Panel2.Controls.Add(btnAddNode);
             splitContainer1.Size = new Size(800, 450);
             splitContainer1.SplitterDistance = 266;
             splitContainer1.TabIndex = 0;
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Guid, EmpName, OrgName, OwnerId, IsDeleted, ParentGuid, AV });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Guid, NavChildrens, NavParent, NavOwnerId, EmpName, OrgName, OwnerId, IsDeleted, ParentGuid, AV });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -89,30 +90,54 @@
             // 
             // Guid
             // 
+            Guid.DataPropertyName = "Guid";
             Guid.HeaderText = "唯一识别";
             Guid.Name = "Guid";
             Guid.ReadOnly = true;
             // 
+            // NavChildrens
+            // 
+            NavChildrens.DataPropertyName = "NavChildrens";
+            NavChildrens.HeaderText = "NavChildrens";
+            NavChildrens.Name = "NavChildrens";
+            NavChildrens.Visible = false;
+            // 
+            // NavParent
+            // 
+            NavParent.DataPropertyName = "NavParent";
+            NavParent.HeaderText = "NavParent";
+            NavParent.Name = "NavParent";
+            NavParent.Visible = false;
+            // 
+            // NavOwnerId
+            // 
+            NavOwnerId.DataPropertyName = "NavOwnerId";
+            NavOwnerId.HeaderText = "NavOwnerId";
+            NavOwnerId.Name = "NavOwnerId";
+            NavOwnerId.Visible = false;
+            // 
             // EmpName
             // 
+            EmpName.DataPropertyName = "EmpName";
             EmpName.HeaderText = "负责人名字";
             EmpName.Name = "EmpName";
-            EmpName.ReadOnly = true;
             // 
             // OrgName
             // 
+            OrgName.DataPropertyName = "OrgName";
             OrgName.HeaderText = "部门名字";
             OrgName.Name = "OrgName";
-            OrgName.ReadOnly = true;
             // 
             // OwnerId
             // 
+            OwnerId.DataPropertyName = "OwnerId";
             OwnerId.HeaderText = "权属人";
             OwnerId.Name = "OwnerId";
             OwnerId.ReadOnly = true;
             // 
             // IsDeleted
             // 
+            IsDeleted.DataPropertyName = "IsDeleted";
             IsDeleted.HeaderText = "IsDeleted";
             IsDeleted.Name = "IsDeleted";
             IsDeleted.ReadOnly = true;
@@ -120,24 +145,54 @@
             // 
             // ParentGuid
             // 
+            ParentGuid.DataPropertyName = "ParentGuid";
             ParentGuid.HeaderText = "父节点";
             ParentGuid.Name = "ParentGuid";
             ParentGuid.ReadOnly = true;
             // 
             // AV
             // 
+            AV.DataPropertyName = "AV";
             AV.HeaderText = "合法性";
             AV.Name = "AV";
             AV.ReadOnly = true;
             // 
-            // button1
+            // btnUpData
             // 
-            button1.Location = new Point(154, 122);
-            button1.Name = "button1";
-            button1.Size = new Size(106, 23);
-            button1.TabIndex = 0;
-            button1.Text = "加入节点";
-            button1.UseVisualStyleBackColor = true;
+            btnUpData.Location = new Point(404, 72);
+            btnUpData.Name = "btnUpData";
+            btnUpData.Size = new Size(75, 23);
+            btnUpData.TabIndex = 9;
+            btnUpData.Text = "修改";
+            btnUpData.UseVisualStyleBackColor = true;
+            btnUpData.Click += btnUpData_Click;
+            // 
+            // btnSignOutNode
+            // 
+            btnSignOutNode.Location = new Point(404, 116);
+            btnSignOutNode.Name = "btnSignOutNode";
+            btnSignOutNode.Size = new Size(75, 23);
+            btnSignOutNode.TabIndex = 8;
+            btnSignOutNode.Text = "删除节点";
+            btnSignOutNode.UseVisualStyleBackColor = true;
+            btnSignOutNode.Click += btnSignOutNode_Click;
+            // 
+            // btnQuery
+            // 
+            btnQuery.Location = new Point(404, 28);
+            btnQuery.Name = "btnQuery";
+            btnQuery.Size = new Size(75, 23);
+            btnQuery.TabIndex = 3;
+            btnQuery.Text = "查询";
+            btnQuery.UseVisualStyleBackColor = true;
+            btnQuery.Click += btnQuery_Click;
+            // 
+            // txParentNode
+            // 
+            txParentNode.Location = new Point(144, 28);
+            txParentNode.Name = "txParentNode";
+            txParentNode.Size = new Size(116, 23);
+            txParentNode.TabIndex = 2;
             // 
             // label1
             // 
@@ -148,53 +203,15 @@
             label1.TabIndex = 1;
             label1.Text = "父节点 Guid :";
             // 
-            // txParentNode
+            // btnAddNode
             // 
-            txParentNode.Location = new Point(154, 28);
-            txParentNode.Name = "txParentNode";
-            txParentNode.Size = new Size(106, 23);
-            txParentNode.TabIndex = 2;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(434, 72);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 3;
-            button2.Text = "查询";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // txEmpName
-            // 
-            txEmpName.AutoSize = true;
-            txEmpName.Location = new Point(63, 67);
-            txEmpName.Name = "txEmpName";
-            txEmpName.Size = new Size(75, 17);
-            txEmpName.TabIndex = 4;
-            txEmpName.Text = "负责人名字 :";
-            // 
-            // txOrgName
-            // 
-            txOrgName.AutoSize = true;
-            txOrgName.Location = new Point(75, 96);
-            txOrgName.Name = "txOrgName";
-            txOrgName.Size = new Size(63, 17);
-            txOrgName.TabIndex = 5;
-            txOrgName.Text = "部门名字 :";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(154, 61);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(106, 23);
-            textBox1.TabIndex = 6;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(154, 93);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(106, 23);
-            textBox2.TabIndex = 7;
+            btnAddNode.Location = new Point(56, 72);
+            btnAddNode.Name = "btnAddNode";
+            btnAddNode.Size = new Size(88, 23);
+            btnAddNode.TabIndex = 0;
+            btnAddNode.Text = "加入节点";
+            btnAddNode.UseVisualStyleBackColor = true;
+            btnAddNode.Click += btnAddNode_Click;
             // 
             // FormIndexManagerSettingSelfNode
             // 
@@ -204,7 +221,6 @@
             Controls.Add(splitContainer1);
             Name = "FormIndexManagerSettingSelfNode";
             Text = "FormIndexManagerSettingLoadSelfNote";
-            Load += FormIndexManagerSettingLoadSelfNote_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             splitContainer1.Panel2.PerformLayout();
@@ -218,20 +234,21 @@
 
         private SplitContainer splitContainer1;
         private DataGridView dataGridView1;
+        private TextBox txParentNode;
+        private Label label1;
+        private Button btnAddNode;
+        private Button btnQuery;
+        private Button btnSignOutNode;
+        private Button btnUpData;
         private DataGridViewTextBoxColumn Guid;
+        private DataGridViewTextBoxColumn NavChildrens;
+        private DataGridViewTextBoxColumn NavParent;
+        private DataGridViewTextBoxColumn NavOwnerId;
         private DataGridViewTextBoxColumn EmpName;
         private DataGridViewTextBoxColumn OrgName;
         private DataGridViewTextBoxColumn OwnerId;
         private DataGridViewTextBoxColumn IsDeleted;
         private DataGridViewTextBoxColumn ParentGuid;
         private DataGridViewTextBoxColumn AV;
-        private TextBox txParentNode;
-        private Label label1;
-        private Button button1;
-        private Button button2;
-        private TextBox textBox2;
-        private TextBox textBox1;
-        private Label txOrgName;
-        private Label txEmpName;
     }
 }
